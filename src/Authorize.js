@@ -1,4 +1,5 @@
 import React from 'react';
+import Info from './Info';
 
 class Authorize extends React.Component {
 
@@ -6,25 +7,10 @@ class Authorize extends React.Component {
 
         const login = <form action="#" onSubmit={this.props.authorize}><input type="password" name="input"  placeholder="Password" onChange={this.props.handleText}/><input type="submit" disabled={!this.props.value}/></form>;
         
-        const contactInfo = (
-          <div>
-          <ul>
-              <li>
-                client@example.com
-              </li>
-              <li>
-                555.555.5555
-              </li>
-          </ul>
-          <a href="#" onClick={this.props.reset}>Back</a>
-            </div>
-      
-        );
-        
         return(
-            <div>
+            <div className="authorize-form">
                 <h1>{(this.props.authorized) ? 'Contact' : 'Enter the Password'}</h1>
-                {(this.props.authorized) ? contactInfo : login}
+                {(this.props.authorized) ? <Info getTotal={this.props.getTotal} handleReset={this.props.reset} randomize={this.props.randomize} /> : login}
             </div>
         );
     }
