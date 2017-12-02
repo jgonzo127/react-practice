@@ -18,6 +18,7 @@ class App extends React.Component {
       this.reset = this.reset.bind(this);
       this.handleText = this.handleText.bind(this);
       this.randomize = this.randomize.bind(this);
+      this.getSpotify = this.getSpotify.bind(this);
   
     }
 
@@ -57,6 +58,23 @@ class App extends React.Component {
       });
 
     }
+
+    getSpotify() {
+      var myHeaders = new Headers();
+      
+        const creds = { method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default' };
+  
+        const spotify = fetch( 'https://api.github.com/users/jgonzo127/repos', creds ).then( function(response) {
+          console.log( response );
+          return response;
+        }).then( (myBlob) => myBlob.json() )
+        .then( function(data ) {
+          console.log( data[0].id );
+        });
+    }
    
     render() {
       
@@ -64,7 +82,7 @@ class App extends React.Component {
         <div id="authorization">
           <Authorize authorized={this.state.authorized} authorize={this.authorize} reset={this.reset} handleText={this.handleText} value={this.state.value} getTotal={this.state.total} randomize={this.randomize}/>
           <Error hideError={this.state.hideError} />
-  
+          {this.getSpotify()}
         </div>
       );
     }
